@@ -1,0 +1,235 @@
+{% include 'ahead.html' %}
+
+<style>
+  /* Reset & Base */
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+  }
+
+  /* Container */
+  .container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+  }
+
+  /* Title */
+  .title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #222;
+    animation: fadeSlideDown 0.6s ease;
+  }
+
+  /* Post Grid */
+  .post-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Post Card */
+  .post-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    padding: 20px 24px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 0.5s ease;
+    position: relative;
+  }
+
+  .post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Card Header */
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .user-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #007acc;
+  }
+
+  .created-time {
+    font-size: 0.9rem;
+    color: #999;
+  }
+
+  /* Post Description */
+  .description {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #444;
+    margin-bottom: 15px;
+  }
+
+  /* Timestamp */
+  .timestamp {
+    font-size: 0.85rem;
+    text-align: right;
+    color: #666;
+  }
+  /* Badge container */
+.badge-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* Mood badge (dynamic color) */
+.mood-badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* Confidence badge (same color everywhere) */
+.confidence-badge {
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background-color: #34495e;   /* SAME for all cards */
+  color: #ffffff;
+}
+
+
+
+/* ===== MODEL LABEL BASED COLORS ===== */
+
+.mood-badge.suicidal_ideation {
+  background-color: #e74c3c; /* Red */
+}
+
+.mood-badge.depressive_language {
+  background-color: #2ecc71; /* Green */
+}
+
+.mood-badge.anxiety_related {
+  background-color: #f39c12; /* Orange */
+}
+
+.mood-badge.stress_related {
+  background-color: #9b59b6; /* Purple */
+}
+
+.mood-badge.unknown {
+  background-color: #95a5a6; /* Grey */
+}
+
+
+  /* No Posts */
+  .no-posts {
+    text-align: center;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: #999;
+  }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(25px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeSlideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInBadge {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .post-card {
+      padding: 16px;
+    }
+
+    .title {
+      font-size: 2rem;
+    }
+
+    .user-name {
+      font-size: 1rem;
+    }
+
+    .description {
+      font-size: 0.95rem;
+    }
+  }
+</style>
+
+<body>
+  <div class="container">
+    <h1 class="title">Admin - All User Posts</h1>
+
+    {% if posts %}
+      <div class="post-grid">
+        {% for post in posts %}
+          <div class="post-card">
+            <div class="card-header">
+              <span class="user-name">{{ post.user_name }}</span>
+              <span class="created-time">{{ post.time_ago }}</span>
+            </div>
+
+            <p class="description">{{ post.description }}</p>
+
+            <div class="timestamp">
+              <strong>Posted on:</strong> {{ post.created_at_str }}
+            </div>
+
+            <div class="badge-group">
+              <span class="mood-badge {{ post.mood_label }}">
+                {{ post.mood_label }}
+              </span>
+
+              <span class="confidence-badge">
+                confidence ( {{ post.confidence }}% )
+              </span>
+            </div>
+
+
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="no-posts">No posts available.</p>
+    {% endif %}
+  </div>
+</body>

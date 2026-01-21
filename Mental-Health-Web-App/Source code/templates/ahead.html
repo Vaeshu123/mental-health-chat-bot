@@ -1,0 +1,39 @@
+{% include 'links.html' %}
+<style>
+    .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 2rem;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ba4545;
+}
+
+nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #ba4545;
+}
+</style>
+<body>
+     <header class="navbar">
+        <div class="logo">SocialMedia</div>
+        <nav>
+            <a href="/admin_home">Admin Home</a>
+             <a href="/view_verify_users">Users</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+</body>

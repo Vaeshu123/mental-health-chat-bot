@@ -1,0 +1,186 @@
+{% include 'uhead.html' %}
+
+<head>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f7f7f7;
+    }
+
+    .main-container {
+      margin-left: 250px; /* space for your sidebar */
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 30px;
+      min-height: 100vh;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: #ba4545;
+      text-align: center;
+    }
+
+    .graph-card img{
+      width: 100%;
+      border-radius: 10px;
+      height: 350px;
+    }
+
+
+    .bar-card img {
+      width: 80%;
+      border-radius: 10px;
+      height: 350px;
+    }
+
+    .messages-card ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .messages-card li {
+      background: #fff7f7;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      border-left: 4px solid #ba4545;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #ba4545;
+      display: block;
+      margin: auto;
+    }
+
+    .user-details {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .user-details h2 {
+      margin: 10px 0 5px;
+      color: #ba4545;
+    }
+
+    .user-details p {
+      margin: 5px 0;
+    }
+
+    .emotion-tag {
+      background: #e0f7fa;
+      padding: 10px;
+      margin-top: 15px;
+      border-left: 5px solid #00796b;
+      font-size: 16px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .alert-box {
+      background: #fff3f3;
+      border-left: 5px solid #e74c3c;
+      padding: 15px 20px;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    .alert-box h3 {
+      color: #c0392b;
+      margin-bottom: 10px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="main-container">
+
+    <!-- Top Left: Heatmap -->
+    {% if graph_path %}
+    <div class="card graph-card">
+      <h3>Mental Health Heatmap</h3>
+      <img src="{{ url_for('static', filename=graph_path) }}" alt="User Graph">
+    </div>
+    {% else %}
+    <div class="card graph-card">
+      <h3>Mental Health Heatmap</h3>
+      <p>No posts available to generate mental health analysis.</p>
+    </div>
+    {% endif %}
+
+    <!-- Top Right: Addiction Graph -->
+    <div class="card bar-card">
+      <h3>Addiction Analysis</h3>
+      {% if bar_graph_path %}
+      <img src="{{ url_for('static', filename=bar_graph_path) }}" alt="Addiction Graph">
+      {% else %}
+      <p>No addiction data available.</p>
+      {% endif %}
+    </div>
+
+    <!-- Bottom Left: Daily Messages -->
+    <div class="card messages-card">
+      <h3>Daily Mental Health Messages</h3>
+      {% if supportive_messages %}
+      <ul>
+        {% for date, message in supportive_messages %}
+        <li><strong>{{ date }}:</strong> <em>{{ message }}</em></li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>No supportive messages yet.</p>
+      {% endif %}
+    </div>
+
+    <!-- Bottom Right: User Profile -->
+    <div class="card">
+      {% for user in users %}
+      <img src="../static/user_profile_pictures/{{user[6]}}" class="profile-pic" alt="Profile Picture">
+      <div class="user-details">
+        <h2>{{ user[1] }}</h2>
+        <p><strong>Email:</strong> {{ user[2] }}</p>
+        <p><strong>Phone:</strong> {{ user[3] }}</p>
+        {% if most_common_emotion %}
+        <div class="emotion-tag">
+          <strong>Most Common Emotion:</strong> {{ most_common_emotion.capitalize() }}
+        </div>
+        {% endif %}
+        {% if post_count %}
+        <div class="emotion-tag">
+          <strong>Number of Posts:</strong> {{ post_count }}
+        </div>
+        {% endif %}
+        {% if suicide_alerts %}
+          <div class="alert-box">
+            <h3>🚨 Suicide-Related Posts Detected</h3>
+            <ul>
+              {% for post in suicide_alerts %}
+                <li><strong>{{ post.date }}</strong>: {{ post.text }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</body>
+</html>

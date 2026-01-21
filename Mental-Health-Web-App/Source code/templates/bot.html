@@ -1,0 +1,78 @@
+{% include 'uhead.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mental Health Support Bot</title>
+    <style>
+        body { font-family: Arial; background: #f4f6f8; }
+        .chat-box { width: 400px; margin: 50px auto; background: white; padding: 15px; border-radius: 8px; }
+        .messages { height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; }
+        .user { color: blue; margin: 5px 0; }
+        .bot { color: green; margin: 5px 0; }
+        input { width: 80%; padding: 5px; }
+        button { padding: 5px 10px; }
+        .disclaimer { font-size: 12px; color: #666; margin-top: 10px; }
+        #crisis-indicator {
+            display: none;
+            background: #e74c3c;
+            color: white;
+            font-size: 10px;
+            padding: 3px 6px;
+            border-radius: 10px;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-box">
+    <h3>
+        Mental Health Support Bot
+        <span id="crisis-indicator">Crisis Detected</span>
+    </h3>
+
+    <div class="messages" id="messages"></div>
+
+    <input type="text" id="message" placeholder="Type your message..." />
+    <button type="button" onclick="sendMessage()">Send</button>
+
+    <div class="disclaimer">
+        ⚠️ This bot is for academic and emotional support only.
+        It is not a mental health professional.
+    </div>
+</div>
+
+<script>
+function sendMessage() {
+    const input = document.getElementById("message");
+    const msg = input.value;
+    if (!msg) return;
+
+    document.getElementById("messages").innerHTML +=
+        `<div class="user"><b>You:</b> ${msg}</div>`;
+
+    fetch("/chat", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({message: msg})
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("messages").innerHTML +=
+            `<div class="bot"><b>Bot:</b> ${data.reply}</div>`;
+
+        // Toggle crisis badge
+        const indicator = document.getElementById("crisis-indicator");
+        if (data.crisis === true) {
+            indicator.style.display = "inline-block";
+        } else {
+            indicator.style.display = "none";
+        }
+    });
+
+    input.value = "";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,276 @@
+{% include 'uhead.html' %}
+
+<!-- jQuery (make sure this is before the script block) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #e3f2fd, #ffffff);
+        margin: 0;
+        padding: 20px;
+        animation: fadeInBody 1s ease-in;
+    }
+
+    .post-card {
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 80%;
+        margin-left: 260px; /* for left nav */
+        margin-top: 100px;
+        animation: fadeSlideUp 1s ease;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        text-align: center;
+        padding: 12px 16px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    th {
+        background-color: #1976d2;
+        color: #fff;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+        transition: 0.3s;
+    }
+
+    .form-btn {
+        padding: 6px 12px;
+        border: none;
+        background-color: #2196f3;
+        color: white;
+        border-radius: 6px;
+        transition: 0.3s ease;
+        cursor: pointer;
+    }
+
+    .form-btn:hover {
+        background-color: #1565c0;
+        transform: scale(1.05);
+    }
+
+    .chat {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 360px;
+        max-height: 550px;
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        display: none;
+        flex-direction: column;
+        z-index: 9999;
+        animation: fadeSlideIn 0.4s ease-in-out;
+    }
+
+    .chat-toggle {
+        display: flex !important;
+    }
+
+    .chat-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 10px;
+        background: #fafafa;
+    }
+
+    .chat-body-messages {
+        max-height: 300px;
+        overflow-y: auto;
+        font-size: 14px;
+    }
+
+    .chat-body-input {
+        padding: 10px;
+        border-top: 1px solid #ccc;
+        background-color: #fff;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 8px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+    }
+
+    .form-input:focus {
+        border-color: #1976d2;
+        outline: none;
+    }
+
+    .chat-close-btn {
+        cursor: pointer;
+        color: red;
+        font-weight: bold;
+    }
+
+    .message-bubble {
+        animation: bounceIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeInBody {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes fadeSlideUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeSlideIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes bounceIn {
+        0%   { transform: scale(0.5); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+</style>
+
+<!-- Chat Table -->
+<div class="post-card">
+    <table class="table">
+        <tr>
+            <th>User Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Chat</th>
+        </tr>
+        {% for friend in friends %}
+        <tr>
+            <td>{{ friend[0] }}</td>
+            <td>{{ friend[1] }}</td>
+            <td>{{ friend[2] }}</td>
+            <td><button class="form-btn" onclick="openChat('{{ friend[0] }}', '{{ friend[1] }}')">Chat</button></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<!-- Hidden Input -->
+<input type="hidden" id="other_customer_id">
+
+<!-- Chat Box -->
+<div id="chat" class="chat p-10">
+    <div class="p-10">
+        <div class="flex space-between">
+            <div id="other_customer_name" class="fw-bold"></div>
+            <div class="chat-close-btn" onclick="closeChat()">X</div>
+        </div>
+        <hr>
+        <div class="chat-body">
+            <div class="chat-body-messages" id="chat-body-messages"></div>
+            <div class="chat-body-input">
+                <div class="row">
+                    <div class="w-80">
+                        <input type="text" id="message" class="form-input" placeholder="Write your message here">
+                    </div>
+                    <div class="w-20 bt p-10">
+                        <button id="btn-send" style="background: none; border: none; cursor: pointer;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="20" fill="blue" class="bi bi-send-fill" viewBox="0 0 16 16">
+                                <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26 4.995 3.178 3.178 4.995.26.41a.5.5 0 0 0 .886-.083zM14.131 2.576L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script -->
+<script>
+    let intervalID = null;
+
+    function openChat(other_customer_id, other_customer_name){
+        $("#other_customer_name").text(other_customer_name);
+        $("#other_customer_id").val(other_customer_id);
+        $(".chat").addClass("chat-toggle");
+        getMessages();
+        intervalManager(true, getMessage, 1000);
+    }
+
+    function closeChat(){
+        $(".chat").removeClass("chat-toggle");
+        intervalManager(false);
+    }
+
+    function getMessages() {
+        $.get("get_messages?other_customer_id=" + $("#other_customer_id").val(), function(data){
+            let display_message = "";
+            let messages = data['messages'];
+            for(let i = 0; i < messages.length; i++){
+                let cls = messages[i][1] != $("#other_customer_id").val() ? 'text-primary text-end' : 'text-success text-start';
+                display_message += `<div class="${cls} mt-2 message-bubble">${messages[i][3]}</div>
+                                    <div class="${cls.includes('end') ? 'text-end pe-3' : 'text-start ps-3'} message-text text-muted">${messages[i][6]}</div>`;
+            }
+            $("#chat-body-messages").html(display_message);
+            scrollToBottom();
+            setAsReadReceiver();
+            setAsReadSender();
+        });
+    }
+
+    function getMessage() {
+        $.get("get_message?other_customer_id=" + $("#other_customer_id").val(), function(data){
+            let messages = data['messages'];
+            for(let i = 0; i < messages.length; i++){
+                let cls = messages[i][1] != $("#other_customer_id").val() ? 'text-primary text-end' : 'text-success text-start';
+                let msg = `<div class="${cls} mt-1 message-bubble">${messages[i][3]}</div>
+                           <div class="${cls.includes('end') ? 'text-end pe-3' : 'text-start ps-3'} message-text text-muted">${messages[i][6]}</div>`;
+                $("#chat-body-messages").append(msg);
+            }
+            scrollToBottom();
+        });
+    }
+
+    function sendMessage() {
+        let message = $("#message").val();
+        if(message.trim() === ""){
+            alert("Enter Message");
+            return;
+        }
+        $.get("send_messages?other_customer_id=" + $("#other_customer_id").val() + "&message=" + message, function(data){
+            $("#message").val("");
+            getMessages();
+        });
+    }
+
+    function setAsReadReceiver(){
+        $.get("set_as_read_receiver?other_customer_id=" + $("#other_customer_id").val());
+    }
+
+    function setAsReadSender(){
+        $.get("set_as_read_sender?other_customer_id=" + $("#other_customer_id").val());
+    }
+
+    function intervalManager(flag, fn, time) {
+        if(flag) {
+            intervalID = setInterval(fn, time);
+        } else {
+            clearInterval(intervalID);
+        }
+    }
+
+    function scrollToBottom() {
+        let box = document.getElementById("chat-body-messages");
+        box.scrollTop = box.scrollHeight;
+    }
+
+    $(document).ready(function(){
+        $("#btn-send").on("click", sendMessage);
+    });
+</script>

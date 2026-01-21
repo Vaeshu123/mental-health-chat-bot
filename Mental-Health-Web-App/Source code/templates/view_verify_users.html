@@ -1,0 +1,66 @@
+{% include 'ahead.html' %}
+<style>
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #aaa;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #eee;
+        }
+        img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+        button {
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+        .verified {
+            color: green;
+            font-weight: bold;
+        }
+        .pending {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2 align="center">Verify User Accounts</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Profile</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Gender</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user[0] }}</td>
+            <td><img src="{{ url_for('static', filename='user_profile_pictures/' + user[6]) }}" alt="Profile"></td>
+            <td>{{ user[1] }}</td>
+            <td>{{ user[2] }}</td>
+            <td>{{ user[3] }}</td>
+            <td>{{ user[5] }}</td>
+            <td class="{{ 'verified' if user[8] == 'verified' else 'pending' }}">{{ user[8]|capitalize }}</td>
+            <td>
+                {% if user[8] != 'verified' %}
+                    <a href="/verify_user/{{ user[0] }}"><button style="background-color:green; color:white;">Verify</button></a>
+                {% else %}
+                    <a href="/deverify_user/{{ user[0] }}"><button style="background-color:red; color:white;">De-Verify</button></a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>

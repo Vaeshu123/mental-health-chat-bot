@@ -1,0 +1,62 @@
+{% include 'uhead.html' %}
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #f0f4ff, #ffffff);
+        animation: fadeInBody 0.7s ease-in;
+    }
+
+    .container {
+        max-width: 850px;
+        margin-left: 270px; /* space for left navbar */
+        padding: 40px 20px;
+        animation: slideIn 0.7s ease-in-out;
+    }
+
+    h3 {
+        font-size: 28px;
+        color: #333;
+        margin-bottom: 20px;
+        animation: zoomIn 0.5s ease;
+    }
+
+    .btn-custom {
+        background-color: #3b82f6;
+        color: #fff;
+        padding: 10px 22px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .btn-custom:hover {
+        background-color: #2563eb;
+        transform: scale(1.05);
+    }
+
+    @keyframes fadeInBody {
+        0% { opacity: 0; background-color: #fff; }
+        100% { opacity: 1; background-color: #f0f4ff; }
+    }
+
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateX(-30px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes zoomIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+    }
+</style>
+
+<div class="container mt-4">
+    <h3>Total Likes: {{ count }}</h3>
+    <a href="/view_post" class="btn-custom">⬅ Back to Posts</a>
+</div>

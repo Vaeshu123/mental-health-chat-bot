@@ -1,0 +1,112 @@
+{% include 'uhead.html' %}
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(to right, #eef2f7, #ffffff);
+        margin: 0;
+        padding: 0;
+        animation: fadeIn 0.6s ease;
+    }
+
+    .container {
+        max-width: 850px;
+        margin-left: 270px; /* for left nav */
+        padding: 40px 20px;
+        animation: slideIn 0.6s ease-in-out;
+    }
+
+    h3, h4 {
+        color: #1f2937;
+        margin-bottom: 20px;
+        font-size: 26px;
+        animation: zoomIn 0.4s ease;
+    }
+
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    li {
+        background: #f9fafb;
+        padding: 12px 16px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        margin-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: transform 0.3s ease;
+        animation: fadeUp 0.4s ease;
+    }
+
+    li:hover {
+        transform: scale(1.01);
+    }
+
+    a.share-btn {
+        padding: 8px 18px;
+        background-color: #3b82f6;
+        color: white;
+        border-radius: 20px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: background 0.3s ease;
+    }
+
+    a.share-btn:hover {
+        background-color: #2563eb;
+    }
+
+    hr {
+        border: none;
+        height: 2px;
+        background: linear-gradient(to right, #3b82f6, transparent);
+        margin: 30px 0;
+        animation: zoomIn 0.3s ease;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; background-color: #fff; }
+        to { opacity: 1; background-color: #eef2f7; }
+    }
+
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateX(-30px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes zoomIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<div class="container mt-4">
+    <h3>📤 Share Post with Friends</h3>
+    <ul>
+        {% for friend in friends %}
+            <li>
+                {{ friend[1] }}
+                <a href="/shared_to_friend_action?post_id={{ post_id }}&friend_id={{ friend[0] }}" class="share-btn">Share</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+
+    <h4>✅ Shared With:</h4>
+    <ul>
+        {% for share in shares %}
+            <li>To: {{ get_user_id_in_post(share[2])[1] }}</li>
+        {% endfor %}
+    </ul>
+</div>

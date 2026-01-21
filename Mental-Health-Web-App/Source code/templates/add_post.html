@@ -1,0 +1,157 @@
+{% include 'uhead.html' %}
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(to bottom right, #fdfbfb, #ebedee);
+        margin: 0;
+        padding: 30px;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: auto;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+        font-size: 28px;
+        margin-bottom: 35px;
+        animation: fadeInDown 0.8s ease;
+    }
+
+    .card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+        padding: 25px;
+        margin-bottom: 30px;
+        transition: all 0.3s ease;
+        animation: fadeInUp 0.6s ease;
+        position: relative;
+    }
+
+    .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .card strong {
+        color: #007bff;
+        font-size: 18px;
+    }
+
+    .card p {
+        margin: 10px 0;
+        font-size: 15px;
+        color: #444;
+    }
+
+    img, audio, video {
+        margin-top: 12px;
+        border-radius: 10px;
+        max-width: 100%;
+        animation: fadeIn 0.5s ease-in;
+    }
+
+    .btn-group {
+        display: flex;
+        gap: 12px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 25px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #fff;
+        cursor: pointer;
+        text-decoration: none;
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+    }
+
+    .btn-outline-primary {
+        background-color: #007bff;
+    }
+
+    .btn-outline-secondary {
+        background-color: #6c757d;
+    }
+
+    .btn-outline-success {
+        background-color: #28a745;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+</style>
+
+<div class="container mt-4">
+    <h2>All Posts</h2>
+    {% for post in posts %}
+        <div class="card">
+            <div><strong>{{ get_user_id_in_post(post[6])[1] }}</strong> posted:</div>
+            <p>{{ post[4] }}</p>
+
+            {% if post[1] %}
+                <img src="/static/posts/images/{{ post[1] }}" alt="Post Image">
+            {% endif %}
+            {% if post[2] %}
+                <audio controls src="/static/posts/audio/{{ post[2] }}"></audio>
+            {% endif %}
+            {% if post[3] %}
+                <video controls width="100%" src="/static/posts/video/{{ post[3] }}"></video>
+            {% endif %}
+
+            <div class="btn-group">
+                <a href="/add_like?post_id={{ post[0] }}" class="btn btn-outline-primary">
+                    ❤️ Like ({{ get_likes_count_by_post_id(post[0]) }})
+                </a>
+                <a href="/get_comments?post_id={{ post[0] }}" class="btn btn-outline-secondary">
+                    💬 Comments ({{ get_comment_count_by_post_id(post[0]) }})
+                </a>
+                <a href="/get_shares?post_id={{ post[0] }}" class="btn btn-outline-success">
+                    🔄 Shares ({{ get_share_count_by_post_id(post[0]) }})
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+</div>

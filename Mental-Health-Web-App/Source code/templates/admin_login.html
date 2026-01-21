@@ -1,0 +1,86 @@
+{% include 'head.html' %}
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, #f0f4f8,#bc431b);
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .admin-login-container {
+        background-color: white;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .custom-login-form h2 {
+        text-align: center;
+        margin-bottom: 24px;
+        color: #333;
+    }
+
+    .custom-form-group {
+        margin-bottom: 20px;
+    }
+
+    .custom-form-group label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .custom-form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+    }
+
+    .custom-form-group input:focus {
+        border-color: #bc431b;
+        outline: none;
+    }
+
+    .custom-login-button {
+        width: 100%;
+        padding: 12px;
+        background-color: #bc431b;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .custom-login-button:hover {
+        background-color: #bc431b;
+    }
+
+</style>
+<body>
+    <div class="admin-login-container mt-100 ml-500">
+        <form class="custom-login-form" action="admin_login_action" method="post">
+            <h2>Admin Login</h2>
+            <div class="custom-form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+            <div class="custom-form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="custom-login-button">Login</button>
+        </form>
+    </div>
+</body>

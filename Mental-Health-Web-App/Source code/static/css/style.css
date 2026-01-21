@@ -1,0 +1,196 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.bg-main {
+    background-repeat: no-repeat;
+    background-image:url("https://images.pexels.com/photos/8845653/pexels-photo-8845653.jpeg?auto=compress&cs=tinysrgb&w=600");
+    background-size: 100%;
+    height: 90.3vh;
+}
+
+.bg-main-1 {
+    background-repeat: no-repeat;
+    background-image:url("https://img.freepik.com/free-photo/black-white-view-adventure-time-with-off-road-vehicle-rough-terrain_23-2151476231.jpg?ga=GA1.1.826343475.1718623123&semt=ais_hybrid");
+    background-size: 100%;
+    height: 90.3vh;
+}
+
+.bg-main-2 {
+    background-repeat: no-repeat;
+    background-image:url("https://img.freepik.com/free-photo/handsome-man-choosing-car-show-room_1303-15204.jpg?ga=GA1.1.826343475.1718623123&semt=ais_siglip");
+    background-size: 100%;
+    height: 90.3vh;
+}
+.bg-main-3 {
+    background-repeat: no-repeat;
+    background-image:url("https://img.freepik.com/premium-photo/happy-satisfied-customer-just-bought-brand-new-car-vehicle-dealership_926199-1941269.jpg?ga=GA1.1.826343475.1718623123&semt=ais_siglip");
+    background-size: 100%;
+    height: 90.3vh;
+}
+.bg-main-4 {
+    background-repeat: no-repeat;
+    background-image:url("https://img.freepik.com/free-photo/business-woman-with-sunglass_53876-24962.jpg?ga=GA1.1.826343475.1718623123&semt=ais_siglip");
+    background-size: 100%;
+    height: 90.3vh;
+}
+.bg-main-5 {
+    background-repeat: no-repeat;
+    background-image:url("https://img.freepik.com/premium-photo/side-view-portrait-backpack-man-standing-against-car-parked-street_1048944-16138395.jpg?ga=GA1.1.826343475.1718623123&semt=ais_hybrid");
+    background-size: 100%;
+    height: 90.3vh;
+}
+.bg-main-6 {
+    background-repeat: no-repeat;
+    background-image:url("https://img.freepik.com/premium-photo/potraite-driving-instructor-woman-student_600776-27502.jpg?ga=GA1.1.826343475.1718623123&semt=ais_hybrid");
+    background-size: 100%;
+    height: 90.3vh;
+}
+.pa {
+    position: absolute;
+    top:0;
+    left:0;
+}
+.pr {
+    position: relative;
+}
+
+
+.login-bg-img {
+    position: absolute;
+    width: 100%;
+    height: 93.7vh;
+}
+
+.login-bg-color {
+    position: absolute;
+    width: 100%;
+    height: 93.7vh;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.bg-color {
+    width: 100%;
+    height: 93.7vh;
+    background-color: rgba(0, 213, 255, 0.097);
+    color: black;
+}
+
+.bg-color-1 {
+    width: 100%;
+    background-color: rgba(0, 213, 255, 0.097);
+    color: black;
+}
+
+
+.bg-img {
+    position: absolute;
+    width: 100%;
+    height: 35.7vh;
+    margin-left: 12.5%;
+}
+
+.text-1 {
+    color: white;
+}
+
+table, th, td{
+    border: 1px solid   ;
+}
+.table {
+    box-sizing: border-box;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.bg-green {
+    background-color: rgb(0, 144, 0);
+    margin-top: 10px;
+    color: white;
+    width: 40%;
+    text-align: center;
+    border-radius: 14px;
+ }
+
+ .bg-red {
+    background-color: red;
+    margin-top: 10px;
+    color: white;
+    width: 40%;
+    text-align: center;
+    border-radius: 14px;
+ }
+
+
+ .sub-title {
+    color: white;
+ }
+
+
+ .img {
+    width: 100%;
+ }
+
+ .m-auto {
+    margin-left: auto;
+    margin-right: auto;
+ }
+ .btn-card {
+    background-color: transparent;
+    border: none !important;
+    z-index: 100;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+ }
+ .card-transparent-img {
+     top: 50%;
+     bottom: 0;
+     left: 0;
+     right: 0;
+     background-color: rgba(0, 0, 0, 0.568);
+     color: white;
+ }
+ .z-high{
+    z-index: 100;
+ }
+ .m-pointer {
+    cursor: pointer;
+ }
+ .overflow{
+    height: 50px;
+    overflow: auto;
+}
+.black{
+    color: black;
+}
+.bg-WOOD {
+    background-color: rgba(0, 213, 255, 0.097);
+    background-size: 100%;
+    height: 92.5vh;
+}
+
+.bg-request {
+    background-color: rgb(73, 110, 137);
+    background-size: 100%;
+    color: white;
+}
+
+th,td{
+    padding: 5px;
+    width: 500px;
+}
+
+.ram{
+background-color:red;
+}
+.white{
+    color: white;
+}
+
+
+

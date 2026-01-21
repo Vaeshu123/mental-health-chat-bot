@@ -1,0 +1,90 @@
+{% include 'head.html' %}
+<style>
+    body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+
+
+.hero {
+    padding: 60px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #bc431b, #ffffff);
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.btn5 {
+    display: inline-block;
+    padding: 10px 25px;
+    background-color: #a92a3e;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #a92a3e;
+}
+
+.features {
+    display: flex;
+    justify-content: space-around;
+    padding: 50px 20px;
+    background-color: #fff;
+    flex-wrap: wrap;
+}
+
+.feature-card {
+    max-width: 280px;
+    background: #f1f3f5;
+    padding: 25px;
+    margin: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+
+</style>
+<section class="hero">
+    <div class="hero-content">
+        <h1>Welcome to SocialMedia</h1>
+        <p>Share your thoughts. Connect with others. Be heard.</p>
+        <a href="/user_register" class="btn5">Get Started</a>
+    </div>
+</section>
+
+<section class="features">
+    <div class="feature-card">
+        <h2>📝 Post</h2>
+        <p>Create updates and share your voice with the community.</p>
+    </div>
+    <div class="feature-card">
+        <h2>💬 Connect</h2>
+        <p>Follow others, interact with posts, and build your network.</p>
+    </div>
+    <div class="feature-card">
+        <h2>🔒 Secure</h2>
+        <p>Your data is protected, and only you control your posts.</p>
+    </div>
+</section>
+
