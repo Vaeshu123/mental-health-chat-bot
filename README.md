@@ -149,15 +149,41 @@ The chatbot is connected to the web application into the Bot tab. The frontend s
 
 `` cd project ``
 
+**Download Required Model File**
+This project requires an external file (~800MB).
+1. Download the file from the following Google Drive link:
+   https://drive.google.com/your-link-here
+
+2. After downloading, place the file inside the project folder. the project folder structure looks like below:
+   
+project/
+
+├── Chatbot/
+
+├── Mental-Health-Web-App/
+
+├── ml_training/
+                    
+├── distilbert-mental-health-stratified/             # <- MODEL HERE
+
+├── .env
+                            
+├── requirements.txt
+
+├── README.md
+
+└── chatbot-architecture-diagram.jpg
+
 ### **Install Dependencies**
 
 `` pip install -r requirements.txt ``
+
 
 ### **Add Environment Variables**
 
 Create `.env` file:
 
-GROQ\_API\_KEY=your\_key\_here
+`GROQ_API_KEY=your_key_here`
 
 Run Backend
 
