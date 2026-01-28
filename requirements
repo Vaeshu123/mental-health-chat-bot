@@ -1,0 +1,11 @@
+groq
+transformers
+textblob
+flask
+pandas
+PyMySQL
+torch
+seaborn
+Flask-Session
+matplotlib
+numpy
