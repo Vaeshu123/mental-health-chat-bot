@@ -2,9 +2,6 @@
 
 *A calm, safe, and supportive chatbot for emotional well-being*
 
-**Mental Health Chat Bot**  
- A supportive chatbot that helps people talk about stress, anxiety, and emotional struggles in a safe and gentle way.
-
 ## **Project Overview**
 
 This project solves the problem of people feeling alone when they are stressed, anxious, or emotionally low. Many people do not always have someone to talk to, and even when they do, it can be hard to open up. This chatbot gives users a simple and safe space to share how they feel.
@@ -37,8 +34,8 @@ This chatbot can be used by students, working professionals, or anyone who wants
 
 The system follows a layered hybrid architecture. In Chatbot, messages go through safety checks first, then emotion and intent analysis, then conversation state logic, and finally to either rule-based replies or the LLM.
 
-**Chatbot  architecture**
-
+## **Chatbot  architecture**
+![Chatbot Architecture](chatbot-architechture-diagram.jpg)
 
 ### **Main Components**
 
