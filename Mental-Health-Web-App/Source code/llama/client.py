@@ -1,6 +1,12 @@
 from groq import Groq
+import os
+from dotenv import load_dotenv
 
-client = Groq(api_key="xxxxxx")
+load_dotenv()
+
+api_key = os.getenv("GROQ_API_KEY")
+
+client = Groq(api_key=api_key)
 
 def query_llama(prompt):
     print(prompt)
